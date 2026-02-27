@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+node_modules/.bin/acorn
+
+# env files
+.env
+.env.local
+.env.*.local
