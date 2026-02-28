@@ -23,7 +23,6 @@ const PERMISSIONS = {
   },
   manager: {
     dashboard: ['read'],
-    dashboard: ['read'],
     inventory: ['read', 'stock'],
     orders:    ['read', 'write'],
     reports:   ['read'],

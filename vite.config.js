@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'https://api-kaaveri-desi.vercel.app',
+        //target: 'http://localhost:5000',
         changeOrigin: true
       }
     }
