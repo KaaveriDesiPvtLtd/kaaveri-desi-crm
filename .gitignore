@@ -8,3 +8,8 @@
 # production
 /build
 node_modules/.bin/acorn
+
+# env files
+.env
+.env.local
+.env.*.local
