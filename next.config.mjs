@@ -2,9 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     async rewrites() {
-        const rawBackendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api-kaaveri-desi.vercel.app';
-        const backendUrl = rawBackendUrl.replace(/\/$/, ''); // Remove trailing slash
-        
+        const backendUrl = process.env.NEXT_PUBLIC_API_URL;
         return [
           {
             source: '/api/crm/:path*',
