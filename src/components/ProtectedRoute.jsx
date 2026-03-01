@@ -1,10 +1,26 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+"use client";
+
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import { ShieldX } from 'lucide-react';
 
 const ProtectedRoute = ({ children, resource, action = 'read' }) => {
   const { isAuthenticated, loading, hasPermission } = useAuth();
+  const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loading && !isAuthenticated && isMounted) {
+      router.replace('/login');
+    }
+  }, [loading, isAuthenticated, isMounted, router]);
+
+  if (!isMounted) return null; // Prevent hydration mis-match
 
   if (loading) {
     return (
@@ -17,9 +33,7 @@ const ProtectedRoute = ({ children, resource, action = 'read' }) => {
     );
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+  if (!isAuthenticated) return null; // Will redirect via useEffect
 
   // If a resource is specified, check permission
   if (resource && !hasPermission(resource, action)) {

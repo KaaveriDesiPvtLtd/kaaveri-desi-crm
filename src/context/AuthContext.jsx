@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
@@ -41,7 +43,7 @@ const PERMISSIONS = {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('crm_token'));
+  const [token, setToken] = useState(typeof window !== 'undefined' ? localStorage.getItem('crm_token') : null);
   const [loading, setLoading] = useState(true);
 
   // Setup axios interceptor for auth header

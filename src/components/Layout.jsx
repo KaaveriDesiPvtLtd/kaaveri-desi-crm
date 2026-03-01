@@ -1,9 +1,10 @@
+"use client";
+
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import { Outlet } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -34,7 +35,7 @@ const Layout = () => {
       
       <main className="flex-1 overflow-y-auto lg:ml-0">
         <div className="p-4 sm:p-6 lg:p-8 mt-16 lg:mt-0">
-          <Outlet />
+          {children}
         </div>
       </main>
     </div>

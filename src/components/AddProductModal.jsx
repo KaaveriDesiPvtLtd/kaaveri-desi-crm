@@ -1,9 +1,23 @@
+"use client";
+
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { X, Plus, Trash2 } from 'lucide-react'
 import axios from 'axios'
 
 export default function AddProductModal({ isOpen, onClose, onProductAdded, productToEdit }) {
+  const formatStockDisplay = (stock, unit) => {
+    if (!stock) return '';
+    const u = (unit || '').toLowerCase().trim();
+    if (u === 'gm') {
+      return stock >= 1000 ? `${parseFloat((stock / 1000).toFixed(3))} kg` : `${stock} gm`;
+    }
+    if (u === 'ml') {
+      return stock >= 1000 ? `${parseFloat((stock / 1000).toFixed(3))} ltr` : `${stock} ml`;
+    }
+    return `${stock} ${u}`;
+  };
+
   const initialFormState = {
     productId: '',
     name: '',
@@ -359,12 +373,12 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded, produ
                     <div>
                       <label className="block text-sm font-medium text-gray-700">Current Stock <span className="text-[10px] text-slate-400 font-normal">(Read-only - Add via 📦 button)</span></label>
                       <input 
-                        type="number" 
+                        type="text" 
                         name="currentStock" 
-                        value={formData.currentStock} 
+                        value={formatStockDisplay(formData.currentStock, formData.baseVariant?.unit || productToEdit?.unit)} 
                         readOnly 
                         disabled
-                        className="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-500 shadow-sm text-sm border p-2 cursor-not-allowed" 
+                        className="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 text-gray-500 shadow-sm text-sm border p-2 cursor-not-allowed uppercase" 
                         placeholder="0" 
                       />
                     </div>

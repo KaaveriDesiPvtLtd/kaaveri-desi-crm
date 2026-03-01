@@ -1,12 +1,13 @@
 import React from 'react';
 import { LayoutDashboard, Package, ShoppingCart, BarChart3, Settings, LogOut, Users } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import clsx from 'clsx';
 
 const Sidebar = ({ isOpen, onClose }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const { user, logout, hasPermission } = useAuth();
   
   const allNavItems = [
@@ -27,7 +28,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login', { replace: true });
+    router.replace('/login');
   };
 
   return (
@@ -57,11 +58,11 @@ const Sidebar = ({ isOpen, onClose }) => {
 
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path;
+          const isActive = pathname === item.path;
           return (
             <Link
               key={item.name}
-              to={item.path}
+              href={item.path}
               onClick={handleLinkClick}
               className={clsx(
                 'flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors',
