@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     async rewrites() {
-        const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+        const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api-kaaveri-desi.vercel.app';
         return [
           {
             source: '/api/crm/:path*',
