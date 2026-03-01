@@ -6,7 +6,7 @@ import axios from 'axios';
 import './globals.css';
 
 // Configure global API base URL from environment
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function RootLayout({ children }) {
   return (

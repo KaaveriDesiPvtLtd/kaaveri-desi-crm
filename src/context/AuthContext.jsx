@@ -50,7 +50,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const interceptor = axios.interceptors.request.use((config) => {
       const storedToken = localStorage.getItem('crm_token');
-      if (storedToken && config.url?.startsWith('/api/crm')) {
+      // Fix: Matches both relative '/api/crm' and absolute 'https://base.com/api/crm'
+      if (storedToken && config.url?.includes('/api/crm')) {
         config.headers.Authorization = `Bearer ${storedToken}`;
       }
       return config;
